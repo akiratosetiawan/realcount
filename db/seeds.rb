@@ -1,3 +1,5 @@
+require 'csv'
+
 inserts = []
 
 #use the newdata file from @fajran 
