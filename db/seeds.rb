@@ -1,4 +1,3 @@
-require 'enumerator'
 require 'csv'
 
 inserts = []
@@ -25,9 +24,9 @@ end
 CONN = ActiveRecord::Base.connection
 
 puts "Inserting TPS data"
-slices = inserts.each_slice(100).to_a
-slices.each do |slice|
-  sql = "INSERT INTO tps_barus(desa, kelurahan_id, tps_id) VALUES #{slice.join(',')}"
+#slices = inserts.each_slice(100).to_a
+inserts.each do |insert|
+  sql = "INSERT INTO tps_barus(desa, kelurahan_id, tps_id) VALUES #{insert.join(',')}"
   CONN.execute(sql)
 end
 puts "Inserted TPS data"
