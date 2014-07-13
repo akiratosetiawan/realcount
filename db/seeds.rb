@@ -1,6 +1,7 @@
 require 'csv'
 
 inserts = []
+indexTPS = Array.new(500000, 0)
 
 #use the newdata file from @fajran 
 CSV.foreach(File.path("db/newdata")) do |col|
