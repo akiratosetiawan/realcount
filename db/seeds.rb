@@ -21,7 +21,7 @@ CSV.foreach(File.path("db/newdata")) do |col|
 		
 		#prepare for inserting to database
 		#inserts.push("('#{desa}', '#{kelurahan_id}' , '#{tps_id}')")
-		sql = "INSERT INTO tps_barus(desa, kelurahan_id, tps_id) VALUES ({desa}, {kelurahan_id}, {tps_id})"
+		sql = "INSERT INTO tps_barus(desa, kelurahan_id, tps_id) VALUES (?, ?, ?), [desa, kelurahan_id, tps_id]"
 		CONN.execute(sql)
 	end
 end
