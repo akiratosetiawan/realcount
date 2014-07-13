@@ -13,7 +13,7 @@ CSV.foreach(File.path("db/newdata")) do |col|
 		
 		#filling the data
 		desa = col[3]
-		kelurahan_id = col[0]
+		kelurahan_id = col[1]
 		tps_id = indexTPS[col[1].to_i].to_s
 		
 		#prepare for inserting to database
