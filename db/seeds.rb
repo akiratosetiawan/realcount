@@ -1,3 +1,4 @@
+require 'enumerator'
 require 'csv'
 
 inserts = []
