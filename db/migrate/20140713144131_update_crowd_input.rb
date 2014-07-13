@@ -1,6 +1,6 @@
 class UpdateCrowdInput < ActiveRecord::Migration
   def change
-	CrowdInput.find(:all).each do |f|
+	CrowdInput.all.each do |f|
 		currentIDKelurahan = Tps.where(:id => f.tps_id).kelurahan_id
 		currentIDTps = Tps.where(:id => f.tps_id).tps_id
 		
