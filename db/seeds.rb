@@ -1,19 +1,21 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-
 inserts = []
 
-File.open("db/data", "r").each_line do |line|
-  desa = line[27..52].strip.gsub("'", "''")
-  kelurahan_id = line[53..59].strip
-  tps_id = line[60..63].strip
-  inserts.push("('#{desa}', '#{kelurahan_id}' , '#{tps_id}')")
+#use the newdata file from @fajran 
+CSV.foreach(File.path("db/newdata")) do |col|
+	
+	#check the degree, proceed if only 4
+	if col[2] == '4'
+		#increment the counter for index
+		indexTPS[col[1].to_i] += 1
+		
+		#filling the data
+		desa = col[3]
+		kelurahan_id = col[0]
+		tps_id = indexTPS[col[1].to_i].to_s
+		
+		#prepare for inserting to database
+		inserts.push("('#{desa}', '#{kelurahan_id}' , '#{tps_id}')")
+	end
 end
 
 CONN = ActiveRecord::Base.connection
