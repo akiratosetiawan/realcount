@@ -1,7 +1,10 @@
 require 'csv'
 
-inserts = []
 indexTPS = Array.new(500000, 0)
+
+CONN = ActiveRecord::Base.connection
+
+puts "Inserting new TPS data"
 
 #use the newdata file from @fajran 
 CSV.foreach(File.path("db/newdata")) do |col|
@@ -18,15 +21,9 @@ CSV.foreach(File.path("db/newdata")) do |col|
 		
 		#prepare for inserting to database
 		inserts.push("('#{desa}', '#{kelurahan_id}' , '#{tps_id}')")
+		sql = "INSERT INTO tps_barus(desa, kelurahan_id, tps_id) VALUES ({desa}, {kelurahan_id}, {tps_id})"
+		CONN.execute(sql)
 	end
 end
 
-CONN = ActiveRecord::Base.connection
-
-puts "Inserting TPS data"
-#slices = inserts.each_slice(100).to_a
-inserts.each do |insert|
-  sql = "INSERT INTO tps_barus(desa, kelurahan_id, tps_id) VALUES #{insert.join(',')}"
-  CONN.execute(sql)
-end
-puts "Inserted TPS data"
+puts "Inserted new TPS data"
