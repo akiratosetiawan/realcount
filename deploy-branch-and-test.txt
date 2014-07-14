@@ -1,0 +1,16 @@
+#Deployment
+
+$heroku create <app-name>
+
+# Not pushing master since last update is still in seed-and-update branch 
+$git push heroku seed-and-update:master
+$heroku run rake db:migrate
+$heroku run rake db:seed
+
+
+# Restore db dump
+$heroku addons:add pgbackups
+$heroku pgbackups:restore DATABASE_URL https://dl.dropboxusercontent.com/u/4927073/data/b004.dump
+
+# Run only the update crowd_input migrate (takes a long time to update 15K records)
+$heroku run rake db:migrate:up VERSION=20140713144131 
